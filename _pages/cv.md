@@ -1,6 +1,6 @@
 ---
-layout: cv
-permalink: /cv/
+# layout: cv
+permalink: /assets/pdf/shahzoor_resume.pdf
 title: cv
 nav: true
 nav_order: 4
