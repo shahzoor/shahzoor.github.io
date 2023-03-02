@@ -44,9 +44,9 @@ They assume the position of a partisan tasked with redistricting looking to maxi
 
 ##### 2.2: The Very First Model with Geography
 {% cite sherstyuk_how_1998 %} builds on the results in {% cite owen_optimal_1988 %} but expands on this work by explicitly modeling geography and the distribution of voter support for each of the two parties. They define a map $$M = \{A_{1}, \ldots, A_{k}\}$$ as a Borel partition of a state $$B \subset \mathbb{R}^2$$ into $$k$$ subsets. A Borel partition satisfies:
-1. $$A_{i} \in B \ \forall i = 1 \ldots k$$
-2. $$A_i \cap A_j=\emptyset \ \forall \mathrm{i} \neq \mathrm{j}, \mathrm{i}, \mathrm{j}=1, \ldots, \mathrm{k}$$
-3. $$\bigcup_{i=1}^k A_i=B$$
+1. The subsets belong to set: $$A_{i} \in B \ \forall i = 1 \ldots k$$
+2. The subsets are disjoint: $$A_i \cap A_j=\emptyset \ \forall \mathrm{i} \neq \mathrm{j}, \mathrm{i}, \mathrm{j}=1, \ldots, \mathrm{k}$$
+3. The union of the subsets forms the set: $$\bigcup_{i=1}^k A_i=B$$
 
 These conditions intuitively apply to any valid redistricting scheme: all proposed districts must be a part of the state, cannot overlap, and their union should form the whole state. Next, every point $$x \in A_{i} \subset B$$ has a time-variant party support index given by $$p_{t}(x) = p(x) +\epsilon_{t}$$ where $$p(x)$$ is a static measure of the gerrymanderer's favorability at point $$x$$ and $$\epsilon_{t}$$ is an exogenous shock that swings voter preferences with some known distribution $$H(\epsilon)$$. A voter located at $$x$$ votes for the gerrymanderer's party if $$p_{t}(x) \geq 0$$. Additionally, the measure of voters in each district must be equal for a map to be valid: $$\mu(A_i) = 1/k \ \forall i=1, \ldots, k$$.
 
