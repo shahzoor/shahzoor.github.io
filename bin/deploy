@@ -49,11 +49,14 @@ echo "Deploying..."
 echo "Source branch: $SRC_BRANCH"
 echo "Deploy branch: $DEPLOY_BRANCH"
 
-read -r -p "Do you want to proceed? [y/N] " response
-if [[ ! $response =~ ^([yY][eE][sS]|[yY])+$ ]]
-then
-    echo "Aborting."
-    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+# Skip interactive prompt in CI environments (GitHub Actions sets CI=true)
+if [[ -z "$CI" ]]; then
+    read -r -p "Do you want to proceed? [y/N] " response
+    if [[ ! $response =~ ^([yY][eE][sS]|[yY])+$ ]]
+    then
+        echo "Aborting."
+        [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+    fi
 fi
 
 # Check if there are any uncommitted changes
@@ -65,13 +68,15 @@ if ! git diff-index --quiet HEAD --; then
     [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
-# Check if there are any untracked files
-if ! test -z "$(git ls-files --exclude-standard --others)"; then
-    echo "There are untracked files:"
-    git ls-files --exclude-standard --others
-    echo "Please commit those files or stash them before proceeding."
-    echo "Aborting."
-    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+# Check if there are any untracked files (skip in CI environments)
+if [[ -z "$CI" ]]; then
+    if ! test -z "$(git ls-files --exclude-standard --others)"; then
+        echo "There are untracked files:"
+        git ls-files --exclude-standard --others
+        echo "Please commit those files or stash them before proceeding."
+        echo "Aborting."
+        [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+    fi
 fi
 
 # Switch to source branch (creates it if necessary from the current branch)
